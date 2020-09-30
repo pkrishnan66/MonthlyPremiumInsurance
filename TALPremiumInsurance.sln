@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TALPremiumInsurance.Busines
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TALPremiumInsurance.Repository", "TALPremiumInsurance.Repository\TALPremiumInsurance.Repository.csproj", "{DEC81889-8D26-4BB8-B5E6-2FA1AF012FC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TALInsurance", "..\TALInsurance\TALInsurance.csproj", "{FBD38BF0-FFA3-4822-86AC-EADF2EDE9AB4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TALPremiumInsurance.UnitTests", "..\TALPremiumInsurance.UnitTests\TALPremiumInsurance.UnitTests.csproj", "{3C75228A-C2B3-41CA-91FE-685EEB9718EA}"
 EndProject
 Global
@@ -31,10 +29,6 @@ Global
 		{DEC81889-8D26-4BB8-B5E6-2FA1AF012FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEC81889-8D26-4BB8-B5E6-2FA1AF012FC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEC81889-8D26-4BB8-B5E6-2FA1AF012FC1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FBD38BF0-FFA3-4822-86AC-EADF2EDE9AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FBD38BF0-FFA3-4822-86AC-EADF2EDE9AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FBD38BF0-FFA3-4822-86AC-EADF2EDE9AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FBD38BF0-FFA3-4822-86AC-EADF2EDE9AB4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3C75228A-C2B3-41CA-91FE-685EEB9718EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3C75228A-C2B3-41CA-91FE-685EEB9718EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C75228A-C2B3-41CA-91FE-685EEB9718EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
