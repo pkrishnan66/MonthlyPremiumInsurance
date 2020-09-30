@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TALPremiumInsuranceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ClientPremium">
+          <Key>
+            <PropertyRef Name="ClientPremiumId" />
+          </Key>
+          <Property Name="ClientPremiumId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
+          <Property Name="OccupationId" Type="int" Nullable="false" />
+          <Property Name="DeathSumInsured" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="MonthlyPremium" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Occupation">
+          <Key>
+            <PropertyRef Name="OccupationId" />
+          </Key>
+          <Property Name="OccupationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Occupation" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="OccupationRatingId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OccupationRating">
+          <Key>
+            <PropertyRef Name="OccupationRatingId" />
+          </Key>
+          <Property Name="OccupationRatingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rating" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Factor" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Client_Occupation">
+          <End Role="Occupation" Type="Self.Occupation" Multiplicity="1" />
+          <End Role="ClientPremium" Type="Self.ClientPremium" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Occupation">
+              <PropertyRef Name="OccupationId" />
+            </Principal>
+            <Dependent Role="ClientPremium">
+              <PropertyRef Name="OccupationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Occupation_OccupationRating">
+          <End Role="OccupationRating" Type="Self.OccupationRating" Multiplicity="1" />
+          <End Role="Occupation" Type="Self.Occupation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OccupationRating">
+              <PropertyRef Name="OccupationRatingId" />
+            </Principal>
+            <Dependent Role="Occupation">
+              <PropertyRef Name="OccupationRatingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TALPremiumInsuranceModelStoreContainer">
+          <EntitySet Name="ClientPremium" EntityType="Self.ClientPremium" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Occupation" EntityType="Self.Occupation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OccupationRating" EntityType="Self.OccupationRating" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Client_Occupation" Association="Self.FK_Client_Occupation">
+            <End Role="Occupation" EntitySet="Occupation" />
+            <End Role="ClientPremium" EntitySet="ClientPremium" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Occupation_OccupationRating" Association="Self.FK_Occupation_OccupationRating">
+            <End Role="OccupationRating" EntitySet="OccupationRating" />
+            <End Role="Occupation" EntitySet="Occupation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TALPremiumInsuranceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ClientPremium">
+          <Key>
+            <PropertyRef Name="ClientPremiumId" />
+          </Key>
+          <Property Name="ClientPremiumId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OccupationId" Type="Int32" Nullable="false" />
+          <Property Name="DeathSumInsured" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="MonthlyPremium" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Occupation" Relationship="Self.FK_Client_Occupation" FromRole="ClientPremium" ToRole="Occupation" />
+        </EntityType>
+        <EntityType Name="Occupation">
+          <Key>
+            <PropertyRef Name="OccupationId" />
+          </Key>
+          <Property Name="OccupationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Occupation1" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OccupationRatingId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ClientPremiums" Relationship="Self.FK_Client_Occupation" FromRole="Occupation" ToRole="ClientPremium" />
+          <NavigationProperty Name="OccupationRating" Relationship="Self.FK_Occupation_OccupationRating" FromRole="Occupation" ToRole="OccupationRating" />
+        </EntityType>
+        <EntityType Name="OccupationRating">
+          <Key>
+            <PropertyRef Name="OccupationRatingId" />
+          </Key>
+          <Property Name="OccupationRatingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rating" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Factor" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Occupations" Relationship="Self.FK_Occupation_OccupationRating" FromRole="OccupationRating" ToRole="Occupation" />
+        </EntityType>
+        <Association Name="FK_Client_Occupation">
+          <End Role="Occupation" Type="Self.Occupation" Multiplicity="1" />
+          <End Role="ClientPremium" Type="Self.ClientPremium" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Occupation">
+              <PropertyRef Name="OccupationId" />
+            </Principal>
+            <Dependent Role="ClientPremium">
+              <PropertyRef Name="OccupationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Occupation_OccupationRating">
+          <End Role="OccupationRating" Type="Self.OccupationRating" Multiplicity="1" />
+          <End Role="Occupation" Type="Self.Occupation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OccupationRating">
+              <PropertyRef Name="OccupationRatingId" />
+            </Principal>
+            <Dependent Role="Occupation">
+              <PropertyRef Name="OccupationRatingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TALPremiumInsuranceDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ClientPremiums" EntityType="Self.ClientPremium" />
+          <EntitySet Name="Occupations" EntityType="Self.Occupation" />
+          <EntitySet Name="OccupationRatings" EntityType="Self.OccupationRating" />
+          <AssociationSet Name="FK_Client_Occupation" Association="Self.FK_Client_Occupation">
+            <End Role="Occupation" EntitySet="Occupations" />
+            <End Role="ClientPremium" EntitySet="ClientPremiums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Occupation_OccupationRating" Association="Self.FK_Occupation_OccupationRating">
+            <End Role="OccupationRating" EntitySet="OccupationRatings" />
+            <End Role="Occupation" EntitySet="Occupations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TALPremiumInsuranceModelStoreContainer" CdmEntityContainer="TALPremiumInsuranceDbContext">
+          <EntitySetMapping Name="ClientPremiums">
+            <EntityTypeMapping TypeName="TALPremiumInsuranceModel.ClientPremium">
+              <MappingFragment StoreEntitySet="ClientPremium">
+                <ScalarProperty Name="ClientPremiumId" ColumnName="ClientPremiumId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="OccupationId" ColumnName="OccupationId" />
+                <ScalarProperty Name="DeathSumInsured" ColumnName="DeathSumInsured" />
+                <ScalarProperty Name="MonthlyPremium" ColumnName="MonthlyPremium" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Occupations">
+            <EntityTypeMapping TypeName="TALPremiumInsuranceModel.Occupation">
+              <MappingFragment StoreEntitySet="Occupation">
+                <ScalarProperty Name="OccupationId" ColumnName="OccupationId" />
+                <ScalarProperty Name="Occupation1" ColumnName="Occupation" />
+                <ScalarProperty Name="OccupationRatingId" ColumnName="OccupationRatingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OccupationRatings">
+            <EntityTypeMapping TypeName="TALPremiumInsuranceModel.OccupationRating">
+              <MappingFragment StoreEntitySet="OccupationRating">
+                <ScalarProperty Name="OccupationRatingId" ColumnName="OccupationRatingId" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Factor" ColumnName="Factor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
