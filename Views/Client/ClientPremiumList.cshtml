@@ -1,0 +1,119 @@
+﻿@model MonthlyPremiumInsurance.ViewModels.ClientPremiumViewModel
+@{
+    ViewBag.Title = "Client Premium List";
+}
+
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/TALPremiumInsuranceScripts/ClientPremium.js"></script>
+<link href="~/StyleSheet/clientPremium.css" rel="stylesheet" />
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TAL Client Monthly Premiums</title>
+</head>
+<body ng-app="ClientPremiumInsurance">
+    <div ng-controller="ClientPremiumController" ng-init="InitializeClientPremiums()">
+        <div class="heightContainer">
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-7"></div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-7"><b>CLIENT MONTHLY PREMIUMS</b></div>
+            <div class="col-md-4"><b ng-show="selectedClientPremium!== null">PREMIUM DETAILS</b></div>
+        </div>
+        <div class="spacebar">
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-7">
+                <table ng-show="ClientPremiumList !== null">
+                    <thead style="background-color:silver;">
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Date Of Birth</th>
+                            <th>Monthly Premium</th>
+                            <th>View More</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="clientPremium in clientPremiumList">
+                            <td>{{ clientPremium.ClientPremiumId }}</td>
+                            <td>{{ clientPremium.Name }}</td>
+                            <td>{{ clientPremium.Age }}</td>
+                            <td>{{ clientPremium.DateOfBirth| date: "dd/MM/yyyy" }}</td>
+                            <td>{{ clientPremium.MonthlyPremium | number :2 }}</td>
+                            <td>
+                                <button class="btn btn-primary" data-ng-click="viewClientPremiumDetails(clientPremium)">
+                                    <span class="glyphicon glyphicon-search"></span> View Details
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4" ng-show="selectedClientPremium!== null">
+                <table>
+                    <thead style="background-color:silver;">
+                        <tr>
+                            <th>Premium Attribute</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Id</td>
+                            <td> {{selectedClientPremium.ClientPremiumId}}</td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td> {{selectedClientPremium.Name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Age</td>
+                            <td> {{selectedClientPremium.Age}}</td>
+                        </tr>
+                        <tr>
+                            <td>Date of Birth</td>
+                            <td> {{selectedClientPremium.DateOfBirth| date: "dd/MM/yyyy"}}</td>
+                        </tr>
+                        <tr>
+                            <td>Occupation</td>
+                            <td> {{selectedClientPremium.Occupation}}</td>
+                        </tr>
+                        <tr>
+                            <td>Death - Sum Insured</td>
+                            <td> {{selectedClientPremium.DeathSumInsured}}</td>
+                        </tr>
+                        <tr>
+                            <td>Rating</td>
+                            <td> {{selectedClientPremium.Rating}}</td>
+                        </tr>
+                        <tr>
+                            <td>Factor</td>
+                            <td> {{selectedClientPremium.Factor}}</td>
+                        </tr>
+                        <tr>
+                            <td>Monthly Premium</td>
+                            <td> {{selectedClientPremium.MonthlyPremium | number: 2}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

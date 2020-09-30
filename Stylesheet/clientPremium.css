@@ -1,0 +1,32 @@
+﻿body {
+    font-family: Arial;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+th {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: left;
+}
+
+.spacebar {
+    height: 25px;
+}
+
+.heightContainer {
+    height: 50px;
+}
+
+.heading {
+    font-family: Arial;
+    text-underline-position: below;
+    font-size: large
+}
