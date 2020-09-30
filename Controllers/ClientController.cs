@@ -38,7 +38,7 @@ namespace MonthlyPremiumInsurance.Controllers
         {
             var clientPremiums = _clientBusinessLogic.GetAllClients();
             var clientPremiumViewModelList = new List<ClientPremiumViewModel>();
-            if (clientPremiums.Count > 0)
+            if (clientPremiums.Count() > 0)
                 foreach (var clientPremium in clientPremiums)
                 {
                     var clientPremiumViewModel = new ClientPremiumViewModel

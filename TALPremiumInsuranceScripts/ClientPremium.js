@@ -26,12 +26,12 @@ var myPremiumApp = angular.module("ClientPremiumInsurance", []).
                 console.log($scope.createClientPremium);
             }
 
-            $scope.calculateMonthlyPremium = function () {
-                console.log($scope.clientPremium);
-                if (!$scope.createClientPremium.DeathInsuredSum || !$scope.createClientPremium.Age ||
+            $scope.calculateMonthlyPremium = function () {        
+                if (!$scope.createClientPremium.Name || !$scope.createClientPremium.DeathInsuredSum || !$scope.createClientPremium.Age ||
                     !$scope.createClientPremium.Occupation) {
                     $scope.createClientPremium.Occupation = 0;
-                    $scope.validationMessage = "Death Insured Sum ,Age and Ocuupation are needed";
+                    $scope.createClientPremium.MonthlyPremium = null;
+                    $scope.validationMessage = "Name,Death Insured Sum ,Age and Ocuupation are needed to calculate premium";
 
                 }
                 else {
@@ -49,7 +49,7 @@ var myPremiumApp = angular.module("ClientPremiumInsurance", []).
             }
 
             $scope.updateAge = function (date) {
-                console.log($scope.createClientPremium);
+                $scope.createClientPremium.MonthlyPremium = null;
                 var year = date.getFullYear();
                 console.log(year);
                 if (year >= 1920 && year < 2003) {
@@ -66,10 +66,6 @@ var myPremiumApp = angular.module("ClientPremiumInsurance", []).
                     $scope.validationMessage = null;
                 })
             }            
-
-            $scope.isOccupationDisabled = function () {
-                return false;
-            }
 
         }]);
 

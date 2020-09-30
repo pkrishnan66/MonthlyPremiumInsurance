@@ -24,6 +24,9 @@ th {
 .heightContainer {
     height: 50px;
 }
+.heightContainerMonthlyPremium {
+    height: 30px;
+}
 
 .heading {
     font-family: Arial;
