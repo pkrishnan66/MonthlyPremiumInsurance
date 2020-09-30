@@ -231,11 +231,11 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TALPremiumInsurance.BusinessLogic\TALPremiumInsurance.BusinessLogic.csproj">
-      <Project>{6c9987a6-4906-4079-8feb-85c7a887c4c4}</Project>
+    <ProjectReference Include="TALPremiumInsurance.BusinessLogic\TALPremiumInsurance.BusinessLogic.csproj">
+      <Project>{de58aab9-9c7d-42b9-8b47-d41d1a69153d}</Project>
       <Name>TALPremiumInsurance.BusinessLogic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TALPremiumInsurance.Repository\TALPremiumInsurance.Repository.csproj">
+    <ProjectReference Include="TALPremiumInsurance.Repository\TALPremiumInsurance.Repository.csproj">
       <Project>{dec81889-8d26-4bb8-b5e6-2fa1af012fc1}</Project>
       <Name>TALPremiumInsurance.Repository</Name>
     </ProjectReference>
