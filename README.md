@@ -2,7 +2,7 @@
 TAL Dotnet Developer Exam
 For setting up SQL please do the following:
 1.Run the DatabaseCreation.sql first
-2.Run the OccupatingRating,Occupation,ClientPremium and MasterData sql scripts in that sequence.
+To set up the application
 
 I have used ASP.NET MVC ,Angularjs , Unity for Dependency Injection , SQL, Enitity Framework Code First Approach.Please open the .sln file to run the project
 after setting up the SQL schema and data.
