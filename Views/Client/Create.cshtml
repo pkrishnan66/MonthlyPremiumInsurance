@@ -14,28 +14,30 @@
     <div class="heightContainer">
     </div>
     <div class="row">
-        <div class="col-md-6"><b>CALCULATE MONTHLY PREMIUMS</b></div>
-        <div class="col-md-6"></div>
+        <div class="col-md-4"><b>CALCULATE MONTHLY PREMIUMS</b></div> 
+        <div class="col-md-2">@Html.ActionLink("Back", "ClientPremiumList", "Client")</div>
+        
     </div>
     <div class="heightContainerMonthlyPremium">
+        
     </div>
     <form name="AddClientPremiumForm" ng-submit="createClientPremium(createClientPremium)" ng-controller="ClientPremiumController">
         <table border="0">
             <tr>
                 <td>Name</td>
-                <td><input type="text" ng-model="createClientPremium.Name" required /></td>
+                <td><input type="text" ng-model="createClientPremium.Name" required />*</td>
             </tr>
             <tr>
                 <td>Date Of Birth</td>
-                <td><input type="date" ng-change="updateAge(createClientPremium.Date)" ng-model="createClientPremium.Date" required /></td>
+                <td><input type="date" ng-change="updateAge(createClientPremium.Date)" ng-model="createClientPremium.Date" required />*</td>
             </tr>
             <tr>
                 <td>Age</td>
-                <td><input type="text" ng-disabled="true" ng-model="createClientPremium.Age" /></td>
+                <td><input type="text" ng-disabled="true" ng-model="createClientPremium.Age" />*</td>
             </tr>
             <tr>
                 <td>Death Insured Sum</td>
-                <td><input type="number" true" ng-model="createClientPremium.DeathSumInsured" />
+                <td><input type="number" true" ng-model="createClientPremium.DeathSumInsured " />*
             <tr>
                 <td>
                     Occupation
@@ -51,11 +53,10 @@
                         <option value="6">Florist</option>
                     </select>
                 </td>
-
             </tr>
             <tr>
                 <td>Monthy Premium</td>
-                <td><input type="text" ng-disabled="true" ng-model="createClientPremium.MonthlyPremium" /></td>
+                <td><input type="text" ng-disabled="true" ng-model="createClientPremium.MonthlyPremium" />*</td>
             </tr>
             <tr class="heightContainer"></tr>
             <tr ng-show="validationMessage !== null">
@@ -68,8 +69,9 @@
             </tr>
             <tr>
                 <td>
-                    <input type="submit" value="submit" ng-disabled="AddClientPremiumForm.$invalid" />
+                    <input type="submit" value="Submit" ng-disabled="AddClientPremiumForm.$invalid" />
                 </td>
+              
             </tr>
         </table>
     </form>

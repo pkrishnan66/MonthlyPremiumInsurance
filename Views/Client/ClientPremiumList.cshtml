@@ -53,7 +53,7 @@
                             <td>{{ clientPremium.Name }}</td>
                             <td>{{ clientPremium.Age }}</td>
                             <td>{{ clientPremium.DateOfBirth| date: "dd/MM/yyyy" }}</td>
-                            <td>{{ clientPremium.MonthlyPremium | number :2 }}</td>
+                            <td>{{ clientPremium.MonthlyPremium | currency  }}</td>
                             <td>
                                 <button class="btn btn-primary" data-ng-click="viewClientPremiumDetails(clientPremium)">
                                     <span class="glyphicon glyphicon-search"></span> View Details
@@ -94,7 +94,7 @@
                         </tr>
                         <tr>
                             <td>Death - Sum Insured</td>
-                            <td> {{selectedClientPremium.DeathSumInsured}}</td>
+                            <td> {{selectedClientPremium.DeathSumInsured | currency}}</td>
                         </tr>
                         <tr>
                             <td>Rating</td>
@@ -106,7 +106,7 @@
                         </tr>
                         <tr>
                             <td>Monthly Premium</td>
-                            <td> {{selectedClientPremium.MonthlyPremium | number: 2}}</td>
+                            <td> {{selectedClientPremium.MonthlyPremium | currency}}</td>
                         </tr>
                     </tbody>
                 </table>
