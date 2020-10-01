@@ -1,13 +1,14 @@
 ﻿/// <reference path="../scripts/angular.min.js" />
 var myPremiumApp = angular.module("ClientPremiumInsurance", []).
-    controller("ClientPremiumController", ['$scope', '$log', 'clientPremiumDataService', 'clientPremiumCalculateAgeService', 'clientPremiumCalculationService',
-        function ($scope, $log, clientPremiumDataService, clientPremiumCalculateAgeService, clientPremiumCalculationService) {
+    controller("ClientPremiumController", ['$scope', '$log', 'clientPremiumDataService', 'clientPremiumCalculateAgeService', 'clientPremiumCalculationService','clientPremiumCreateService',
+        function ($scope, $log, clientPremiumDataService, clientPremiumCalculateAgeService, clientPremiumCalculationService, clientPremiumCreateService) {
             //Declare the scope and properties...
             $scope.clientPremiumList;
             $scope.selectedClientPremium = null;
             $scope.createClientPremium = null;
             $scope.year = 1920;
             $scope.validationMessage = null;
+            $scope.successMessage = null;
             $scope.InitializeClientPremiums = function () {
                 $scope.getClientPremiums();
             }
@@ -27,18 +28,18 @@ var myPremiumApp = angular.module("ClientPremiumInsurance", []).
             }
 
             $scope.calculateMonthlyPremium = function () {        
-                if (!$scope.createClientPremium.Name || !$scope.createClientPremium.DeathInsuredSum || !$scope.createClientPremium.Age ||
-                    !$scope.createClientPremium.Occupation) {
-                    $scope.createClientPremium.Occupation = 0;
+                if (!$scope.createClientPremium.Name || !$scope.createClientPremium.DeathSumInsured || !$scope.createClientPremium.Age ||
+                    !$scope.createClientPremium.OccupationId) {
+                    $scope.createClientPremium.OccupationId = 0;
                     $scope.createClientPremium.MonthlyPremium = null;
                     $scope.validationMessage = "Name,Death Insured Sum ,Age and Ocuupation are needed to calculate premium";
 
                 }
                 else {
                     var calculatePremiumObject = {
-                        DeathSumInsured: $scope.createClientPremium.DeathInsuredSum,
+                        DeathSumInsured: $scope.createClientPremium.DeathSumInsured,
                         Age: $scope.createClientPremium.Age,
-                        OccupationId: $scope.createClientPremium.Occupation
+                        OccupationId: $scope.createClientPremium.OccupationId
                     };
                     var calcObj = JSON.stringify(calculatePremiumObject);
                     clientPremiumCalculationService.GetMonthlyPremiumForClient(calcObj, function (data) {
@@ -65,7 +66,28 @@ var myPremiumApp = angular.module("ClientPremiumInsurance", []).
                     $scope.createClientPremium.Age = data;
                     $scope.validationMessage = null;
                 })
-            }            
+            }
+
+            $scope.createClientPremium = function (clientPremium) {
+                $scope.successMessage = null;
+                var dd = String($scope.createClientPremium.Date.getDate()).padStart(2, '0');
+                var mm = String($scope.createClientPremium.Date.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = $scope.createClientPremium.Date.getFullYear();
+                var dateString = dd + '/' + mm + '/' + yyyy;
+                var clientPremium = {
+                    Name: $scope.createClientPremium.Name,
+                    Age: $scope.createClientPremium.Age,
+                    DateOfBirthStr: dateString,
+                    OccupationId: $scope.createClientPremium.OccupationId,
+                    DeathSumInsured: $scope.createClientPremium.DeathSumInsured,
+                    MonthlyPremium: $scope.createClientPremium.MonthlyPremium
+                };
+                clientPremiumCreateService.CreatePremiumForClient(clientPremium, function (data) {
+                    //$scope.createClientPremium.Age = data;
+                    $scope.successMessage = data;
+                    $scope.createClientPremium = null;
+                })
+            }
 
         }]);
 
@@ -111,5 +133,16 @@ angular.module("ClientPremiumInsurance").service("clientPremiumCalculationServic
 }]);
 
 
+//Create Client Premium Insurance
+angular.module("ClientPremiumInsurance").service("clientPremiumCreateService", ['$http', '$log', function ($http, $log) {
 
+    var path = "/Client/";
+    this.CreatePremiumForClient = function (clientPremium, callback) {
+        $http.post(path + 'CreatePremiumForClient', clientPremium)
+            .then(function (response) {
+                var result = "Client Premium successfully saved";
+                callback(result);
+            });
+    }
+}]);
 

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TALPremiumInsurance.BusinessLogic;
+using TALPremiumInsurance.Repository;
 
 namespace MonthlyPremiumInsurance.Controllers
 {
@@ -75,6 +76,24 @@ namespace MonthlyPremiumInsurance.Controllers
            
             var monthlyPremium = _calculationBusinessLogic.CalculateClientMonthlyPremium(parsedObj.DeathSumInsured, parsedObj.Age, parsedObj.OccupationId);
             return Json(monthlyPremium, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult CreatePremiumForClient(ClientPremiumViewModel clientPremium)
+        {
+            //var parsedObj = JsonConvert.DeserializeObject<ClientPremiumViewModel>(createPremiumJson);
+            var clientPremiumData = new ClientPremium
+            {
+                Name = clientPremium.Name,
+                Age = clientPremium.Age,
+                DateOfBirth = Convert.ToDateTime(clientPremium.DateOfBirthStr),
+                OccupationId = clientPremium.OccupationId,
+                DeathSumInsured = clientPremium.DeathSumInsured,
+                MonthlyPremium = clientPremium.MonthlyPremium,
+                IsActive = true
+            };
+            _clientBusinessLogic.CreateClientPremium(clientPremiumData);
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
     }
 }

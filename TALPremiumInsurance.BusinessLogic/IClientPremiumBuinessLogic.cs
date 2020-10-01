@@ -8,6 +8,6 @@ namespace TALPremiumInsurance.BusinessLogic
     public interface IClientPremiumBusinessLogic
     {
         List<ClientPremium> GetAllClients();
-        string InsertClient();        
+        void CreateClientPremium(ClientPremium clientPremium);        
     }
 }

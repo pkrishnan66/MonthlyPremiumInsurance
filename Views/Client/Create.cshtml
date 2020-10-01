@@ -19,7 +19,7 @@
     </div>
     <div class="heightContainerMonthlyPremium">
     </div>
-    <form name="AddClientPremiumForm" ng-submit="addClientPremium()" ng-controller="ClientPremiumController">
+    <form name="AddClientPremiumForm" ng-submit="createClientPremium(createClientPremium)" ng-controller="ClientPremiumController">
         <table border="0">
             <tr>
                 <td>Name</td>
@@ -35,13 +35,13 @@
             </tr>
             <tr>
                 <td>Death Insured Sum</td>
-                <td><input type="number" true" ng-model="createClientPremium.DeathInsuredSum" />
+                <td><input type="number" true" ng-model="createClientPremium.DeathSumInsured" />
             <tr>
                 <td>
                     Occupation
                 </td>
                 <td>
-                    <select name="singleSelect" id="singleSelect" ng-model="createClientPremium.Occupation" ng-change="calculateMonthlyPremium()">
+                    <select name="singleSelect" id="singleSelect" ng-model="createClientPremium.OccupationId" ng-change="calculateMonthlyPremium()">
                         <option value="0">--Please Select--</option>
                         <option value="1">Cleaner</option>
                         <option value="2">Doctor</option>
@@ -61,6 +61,10 @@
             <tr ng-show="validationMessage !== null">
                 <td> Validation</td>
                 <td style="color:red;"> {{validationMessage}}</td>
+            </tr>
+            <tr ng-show="successMessage !== null">
+                <td> Validation</td>
+                <td style="color:limegreen;"> {{successMessage}}</td>
             </tr>
             <tr>
                 <td>

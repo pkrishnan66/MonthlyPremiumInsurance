@@ -11,10 +11,12 @@ namespace MonthlyPremiumInsurance.ViewModels
         public string Name { get; set; }
         public int  Age { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public string DateOfBirthStr { get; set; }
         public string Occupation { get; set; }
         public decimal DeathSumInsured { get; set; }
         public string Rating { get; set; }
         public decimal Factor { get; set; }
         public decimal MonthlyPremium { get; set; }
+        public int OccupationId { get; set; }
     }
 }

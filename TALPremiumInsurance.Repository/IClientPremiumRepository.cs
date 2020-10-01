@@ -7,6 +7,7 @@ namespace TALPremiumInsurance.Repository
     public interface IClientPremiumRepository 
     {
         List<ClientPremium> GetAllClients();
+        void CreateClientPremium(ClientPremium clientPremium);
 
     }
 }

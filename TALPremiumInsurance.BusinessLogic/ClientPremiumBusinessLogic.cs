@@ -12,14 +12,16 @@ namespace TALPremiumInsurance.BusinessLogic
         {
             _clientPremiumRepository = clientPremiumRepository;
         }
+
+        public void CreateClientPremium(ClientPremium clientPremium)
+        {
+            _clientPremiumRepository.CreateClientPremium(clientPremium);
+        }
+
         public List<ClientPremium> GetAllClients()
         {
             return _clientPremiumRepository.GetAllClients();
         }
-
-        public string InsertClient()
-        {
-            return "Insert";
-        }
+        
     }
 }
