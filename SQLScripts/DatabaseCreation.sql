@@ -110,3 +110,132 @@ ALTER DATABASE [TALPremiumInsurance] SET  READ_WRITE
 GO
 
 
+USE [TALPremiumInsurance]
+GO
+
+/****** Object:  Table [dbo].[OccupationRating]    Script Date: 01-10-2020 00:06:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[OccupationRating](
+	[OccupationRatingId] [int] IDENTITY(1,1) NOT NULL,
+	[Rating] [varchar](20) NOT NULL,
+	[Factor] [decimal](4, 2) NOT NULL,
+ CONSTRAINT [PK_OccupationRating] PRIMARY KEY CLUSTERED 
+(
+	[OccupationRatingId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+USE [TALPremiumInsurance]
+GO
+
+/****** Object:  Table [dbo].[Occupation]    Script Date: 01-10-2020 00:06:43 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[Occupation](
+	[OccupationId] [int] IDENTITY(1,1) NOT NULL,
+	[Occupation] [varchar](10) NOT NULL,
+	[OccupationRatingId] [int] NOT NULL,
+ CONSTRAINT [PK_Occupation] PRIMARY KEY CLUSTERED 
+(
+	[OccupationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[Occupation]  WITH CHECK ADD  CONSTRAINT [FK_Occupation_OccupationRating] FOREIGN KEY([OccupationRatingId])
+REFERENCES [dbo].[OccupationRating] ([OccupationRatingId])
+GO
+
+ALTER TABLE [dbo].[Occupation] CHECK CONSTRAINT [FK_Occupation_OccupationRating]
+GO
+
+
+USE [TALPremiumInsurance]
+GO
+
+/****** Object:  Table [dbo].[ClientPremium]    Script Date: 01-10-2020 00:06:53 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[ClientPremium](
+	[ClientPremiumId] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NOT NULL,
+	[Age] [int] NOT NULL,
+	[DateOfBirth] [datetime] NOT NULL,
+	[OccupationId] [int] NOT NULL,
+	[DeathSumInsured] [decimal](10, 2) NOT NULL,
+	[MonthlyPremium] [decimal](10, 2) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_Client] PRIMARY KEY CLUSTERED 
+(
+	[ClientPremiumId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[ClientPremium]  WITH CHECK ADD  CONSTRAINT [FK_Client_Occupation] FOREIGN KEY([OccupationId])
+REFERENCES [dbo].[Occupation] ([OccupationId])
+GO
+
+ALTER TABLE [dbo].[ClientPremium] CHECK CONSTRAINT [FK_Client_Occupation]
+GO
+
+
+INSERT INTO [dbo].OccupationRating values (
+'Professional', 1.0)
+INSERT INTO [dbo].OccupationRating values (
+'White Collar', 1.25)
+INSERT INTO [dbo].OccupationRating values (
+'Light Manual', 1.50)
+INSERT INTO [dbo].OccupationRating values (
+'Heavy Manual', 1.75)
+
+Select * from OccupationRating
+
+INSERT INTO [dbo].Occupation values ('Cleaner',3)
+INSERT INTO [dbo].Occupation values ('Doctor',1)
+INSERT INTO [dbo].Occupation values ('Author',2)
+INSERT INTO [dbo].Occupation values ('Farmer',4)
+INSERT INTO [dbo].Occupation values ('Mechanic',4)
+INSERT INTO [dbo].Occupation values ('Florist',3)
+
+INSERT INTO [dbo].ClientPremium values ('Prashanth','37','12/09/1983',4,10000.00 ,210.00,1)
+INSERT INTO [dbo].ClientPremium values ('Nishanth','36','12/09/1984',4,10000.00 ,210.00,1)
+INSERT INTO [dbo].ClientPremium values ('Prashanth','37','12/09/1983',4,10000.00 ,210.00,1)
+INSERT INTO [dbo].ClientPremium values ('Virender','41','11/11/1978',1,134560.00 ,99305.28,1)
+INSERT INTO [dbo].ClientPremium values ('Prasad','41','01/11/1978',2,14560.00 ,7163.52,1)
+
+
