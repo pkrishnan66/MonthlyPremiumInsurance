@@ -6,7 +6,7 @@ var myPremiumApp = angular.module("ClientPremiumInsurance", []).
             $scope.clientPremiumList;
             $scope.selectedClientPremium = null;
             $scope.createClientPremium = null;
-            $scope.year = 1920;
+            $scope.year = 0;
             $scope.validationMessage = null;
             $scope.successMessage = null;
             $scope.InitializeClientPremiums = function () {
@@ -27,12 +27,13 @@ var myPremiumApp = angular.module("ClientPremiumInsurance", []).
                 console.log($scope.createClientPremium);
             }
 
-            $scope.calculateMonthlyPremium = function () {        
+            $scope.calculateMonthlyPremium = function () {    
+                $scope.validationMessage = null;
                 if (!$scope.createClientPremium.Name || !$scope.createClientPremium.DeathSumInsured || !$scope.createClientPremium.Age ||
                     !$scope.createClientPremium.OccupationId) {
                     $scope.createClientPremium.OccupationId = 0;
                     $scope.createClientPremium.MonthlyPremium = null;
-                    $scope.validationMessage = "Name,Death Insured Sum ,Age and Ocuupation are needed to calculate premium";
+                    $scope.validationMessage = "Name,Death Insured Sum,Age and Occupation are needed to calculate premium";
 
                 }
                 else {
@@ -45,22 +46,27 @@ var myPremiumApp = angular.module("ClientPremiumInsurance", []).
                     clientPremiumCalculationService.GetMonthlyPremiumForClient(calcObj, function (data) {
                         $scope.createClientPremium.MonthlyPremium = data;
                     })
-                }
-                
+                }               
             }
 
             $scope.updateAge = function (date) {
                 $scope.createClientPremium.MonthlyPremium = null;
-                var year = date.getFullYear();
-                console.log(year);
-                if (year >= 1920 && year < 2003) {
-                    $scope.getClientAge(date);                    
+                var currentDate = new Date();
+                var yearUpperLimit = currentDate.getFullYear() -18;
+                var yearLowerLimit = currentDate.getFullYear() - 100;
+                var dateYear = date.getFullYear();
+                if (dateYear >= yearLowerLimit && dateYear <= yearUpperLimit) {
+                    $scope.getClientAge(date);
+                    $scope.createClientPremium.OccupationId = 0;
+                    $scope.createClientPremium.MonthlyPremium = null;
                 }
                 else {
+                    $scope.createClientPremium.Age = 0;
                     $scope.validationMessage = "Age must be between 18 and 100";
                 }
 
             }
+
             $scope.getClientAge = function (dob) {
                 clientPremiumCalculateAgeService.GetClientAge(dob, function (data) {
                     $scope.createClientPremium.Age = data;
