@@ -1,7 +1,7 @@
 # MonthlyPremiumInsurance
 TAL Dotnet Developer Exam
 For setting up SQL please do the following:
-1.Run the DatabaseCreation.sql first
+1.Run the DatabaseCreation.sql first which is placed in the SQLScripts folder.
 To set up the application
 
 I have used ASP.NET MVC ,Angularjs , Unity for Dependency Injection , SQL, Enitity Framework Code First Approach.Please open the .sln file to run the project
